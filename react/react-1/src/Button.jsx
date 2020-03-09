@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Button = ({text, backgroundColor, onClick}) => {
+export const Button = ({text, backgroundColor, onClick, disable}) => {
     
     return (
-    <button className="btn" style={{backgroundColor, borderRadius: 5}} onClick={onClick}>{text}</button>
+    <button className="btn" style={{backgroundColor, borderRadius: 5}} onClick={onClick} disabled={disable}>{text}</button>
       
     )
 }
