@@ -1,0 +1,131 @@
+
+.App{
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+}
+.container{
+    width: 1200px;
+    flex-wrap: wrap;
+}
+.buttons button{
+    background-color: #cc3333;
+    border: none;
+    margin: 0 3px;
+    color: white;
+}
+.caption-row{
+    font-family: 'Oswald', sans-serif;
+    font-size: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 15px;
+}
+.product-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+.product{
+    border-radius: 5px;
+    background-color: white;
+    margin: 0 15px 30px;
+    max-width: 230px;
+}
+.product img:first-child{
+    border-radius: 5px;
+    width: 230px;
+    height: 230px;
+    object-fit: cover;
+}
+.product-inf{
+    margin: 0 10px;
+}
+.product-name{
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+.product-desc{
+    font-size: 14px;
+}
+.product-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.product-price{
+    font-size: 18px;
+    font-weight: bold;
+}
+.add-to-cart--btn{
+    color: white;
+    text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.904);
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 10px;
+}
+.add-to-cart--btn:hover{
+    background-color: #E74C3C;
+}
+.star {
+    display: none
+}
+
+.star:checked + svg {
+  fill: #cc3333;
+}
+.modal-container{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal{
+    height: 200px;
+    width: 400px;
+    background-color: #E74C3C;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+}
+.modal-text{
+    margin-top: 30px;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.close-btn{
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+.btn{
+    width: 100px;
+    height: 25px;
+    margin: 30px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    color: white;
+}
+.modal-heaeder{
+    padding: 0 15px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0,0,0,.3);
+    height: 40px; 
+}
+
+  
