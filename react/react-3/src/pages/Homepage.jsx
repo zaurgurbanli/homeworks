@@ -15,8 +15,20 @@ export const Homepage = () => {
         getData();
     },[]);
 
- 
-
+    const checkItem = (id) => {
+        let favProduct=[];
+        const newData = {...localStorage};
+        for(let key in newData){
+            if(`${key}`.includes("fav")){
+                favProduct.push(JSON.parse(localStorage.getItem(key)));
+            }
+        }
+        return  favProduct.find((e)=>(e.id===id ? true : false))
+      
+    }
+   
+    console.log(checkItem());
+    
     return (
         <div className="App">
             <div className  ="container">
@@ -25,6 +37,11 @@ export const Homepage = () => {
                 </div>
                 <div className="products">
                     {data.map((item)=>(
+                        checkItem(item.id)? 
+                        <div key={item.id}>
+                            <Product item={item} hfav={true} />
+                        </div>
+                        :
                         <div key={item.id}>
                             <Product item={item} />
                         </div>

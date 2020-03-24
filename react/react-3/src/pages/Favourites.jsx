@@ -5,12 +5,12 @@ import {Product} from '../components/Product';
 export const Favourites = () => {
     let favProduct=[];
     const getData = () => {
-        const newData = {...localStorage};
+        const newData = {...localStorage};        
         for(let key in newData){
             if(`${key}`.includes("fav"))
                 favProduct.push(JSON.parse(localStorage.getItem(key)));
         }        
-    } 
+    }     
     getData();
     
     return (

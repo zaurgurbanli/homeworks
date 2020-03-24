@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Modal } from './Modal';
 import { Button } from './Button';
 
-export const Product = ({item, fav=false, close=false}) => {
+export const Product = ({item, fav=false, close=false, hfav=false}) => {
 
     const confirm = () => {
         localStorage.setItem(`added-item${item.id}`, JSON.stringify(item));
@@ -19,6 +19,7 @@ export const Product = ({item, fav=false, close=false}) => {
     const [c, setC] = useState(false);
     const [firstModalStatus, setFirstModalStatus] = useState(false);
 
+    
 
     const toggleFirstModal = () => (setFirstModalStatus(v=> !v));
     const toggleF = () => (setF(v=> !v));
@@ -36,6 +37,8 @@ export const Product = ({item, fav=false, close=false}) => {
         localStorage.removeItem(`added-item${item.id}`);
         toggleFirstModal();
     }
+
+ 
     
     return (
         <div>
@@ -53,7 +56,7 @@ export const Product = ({item, fav=false, close=false}) => {
                     <div className="product-inf">
                         <p className="product-name">{item.name}</p>
                         <div onClick={toggleFav} className="star">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill={ favStatus ? "#cc3333" : "#000"}><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill={hfav ? "#cc3333" : (favStatus ? "#cc3333" : "#000")}><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
                         </div>
                         <p className="product-desc">{item.desc}</p>
                         <div className="product-footer">
