@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, ScrollView, AsyncStorage } from "react-native";
 import { connect } from "react-redux";
-import { getLists } from "../store/notes";
+import { getLists, deleteList } from "../store/notes";
 import { CustomText } from "../components/CustomText";
 import { MenuHeaderIcon } from "../components/MenuHeaderIcon";
 import { ListCard } from "../components/ListCard";
@@ -18,50 +18,51 @@ export function getCountOfElements(list) {
 const mapStateToProps = (state) => ({
   lists: getLists(state),
 });
+export const OneTimeListScreen = connect(mapStateToProps, { deleteList })(
+  ({ lists, deleteList }) => {
+    const navigation = useNavigation();
 
-export const OneTimeListScreen = connect(mapStateToProps)(({ lists }) => {
-  const navigation = useNavigation();
-
-  function getCountOfElements(list) {
-    let count = 0;
-    for (let i = 0; i < list.components.length; i++) {
-      if (list.components[i].bought) count++;
+    function getCountOfElements(list) {
+      let count = 0;
+      for (let i = 0; i < list.components.length; i++) {
+        if (list.components[i].bought) count++;
+      }
+      return count;
     }
-    return count;
+    return (
+      <View style={styles.container}>
+        <View style={styles.heading}>
+          <CustomText style={styles.headingText}>One Time List</CustomText>
+          <View style={{ position: "absolute", right: 0 }}>
+            <MenuHeaderIcon />
+          </View>
+        </View>
+        <View style={styles.main}>
+          <View style={styles.list}>
+            <ScrollView>
+              {lists.map((list) => (
+                <View key={list.id}>
+                  {list.type === "onetime" && (
+                    <ListCard
+                      title={list.name}
+                      boughtCount={getCountOfElements(list)}
+                      totalBought={list.components.length}
+                      onPress={() => {
+                        const listID = list.id;
+                        navigation.navigate("Edit", { listID });
+                      }}
+                      onLongPress={() => deleteList({ listID: list.id })}
+                    />
+                  )}
+                </View>
+              ))}
+            </ScrollView>
+          </View>
+        </View>
+      </View>
+    );
   }
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.heading}>
-        <CustomText style={styles.headingText}>One Time List</CustomText>
-        <View style={{ position: "absolute", right: 0 }}>
-          <MenuHeaderIcon />
-        </View>
-      </View>
-      <View style={styles.main}>
-        <View style={styles.list}>
-          <ScrollView>
-            {lists.map((list) => (
-              <View key={list.id}>
-                {list.type === "onetime" && (
-                  <ListCard
-                    title={list.name}
-                    boughtCount={getCountOfElements(list)}
-                    totalBought={list.components.length}
-                    onPress={() => {
-                      const listID = list.id;
-                      navigation.navigate("Edit", { listID });
-                    }}
-                  />
-                )}
-              </View>
-            ))}
-          </ScrollView>
-        </View>
-      </View>
-    </View>
-  );
-});
+);
 
 const styles = StyleSheet.create({
   container: {

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { connect } from "react-redux";
-import { getLists } from "../store/notes";
+import { getLists, deleteList } from "../store/notes";
 import { CustomText } from "../components/CustomText";
 import { MenuHeaderIcon } from "../components/MenuHeaderIcon";
 import { ListCard } from "../components/ListCard";
@@ -12,37 +12,43 @@ const mapStateToProps = (state) => ({
   lists: getLists(state),
 });
 
-export const RegularListScreen = connect(mapStateToProps)(({ lists }) => {
-  const navigation = useNavigation();
-  return (
-    <View style={styles.container}>
-      <View style={styles.heading}>
-        <CustomText style={styles.headingText}>Regular List</CustomText>
-        <View style={{ position: "absolute", right: 0 }}>
-          <MenuHeaderIcon />
+export const RegularListScreen = connect(mapStateToProps, { deleteList })(
+  ({ lists, deleteList }) => {
+    const navigation = useNavigation();
+    return (
+      <View style={styles.container}>
+        <View style={styles.heading}>
+          <CustomText style={styles.headingText}>Regular List</CustomText>
+          <View style={{ position: "absolute", right: 0 }}>
+            <MenuHeaderIcon />
+          </View>
+        </View>
+        <View style={styles.main}>
+          <View style={styles.list}>
+            <ScrollView>
+              {lists.map((list) => (
+                <View key={list.id}>
+                  {list.type === "regular" && (
+                    <ListCard
+                      title={list.name}
+                      boughtCount={getCountOfElements(list)}
+                      totalBought={list.components.length}
+                      onPress={() => {
+                        const listID = list.id;
+                        navigation.navigate("Edit", { listID });
+                      }}
+                      onLongPress={() => deleteList({ listID: list.id })}
+                    />
+                  )}
+                </View>
+              ))}
+            </ScrollView>
+          </View>
         </View>
       </View>
-      <View style={styles.main}>
-        <View style={styles.list}>
-          <ScrollView>
-            {lists.map((list) => (
-              <View key={list.id}>
-                {list.type === "regular" && (
-                  <ListCard
-                    title={list.name}
-                    numberOfBought={getCountOfElements(list)}
-                    totalNumber={list.components.length}
-                    onPress={() => navigation.navigate("Edit")}
-                  />
-                )}
-              </View>
-            ))}
-          </ScrollView>
-        </View>
-      </View>
-    </View>
-  );
-});
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   container: {

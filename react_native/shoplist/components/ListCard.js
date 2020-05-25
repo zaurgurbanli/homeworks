@@ -3,7 +3,13 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import * as Progress from "react-native-progress";
 import { CustomText } from "./CustomText";
 
-export const ListCard = ({ title, onPress, boughtCount, totalBought }) => {
+export const ListCard = ({
+  title,
+  onPress,
+  boughtCount,
+  totalBought,
+  onLongPress,
+}) => {
   return (
     <TouchableOpacity
       style={[
@@ -11,6 +17,7 @@ export const ListCard = ({ title, onPress, boughtCount, totalBought }) => {
         boughtCount === totalBought ? { opacity: 0.3 } : "",
       ]}
       onPress={onPress}
+      onLongPress={onLongPress}
     >
       <View style={styles.title}>
         <CustomText weight="semi" style={{ fontSize: 16 }}>

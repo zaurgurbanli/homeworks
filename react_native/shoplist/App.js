@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { AppLoading } from "expo";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
-import { persistStore } from "redux-persist";
 
 import { RootDrawer } from "./navigation/Drawer";
 import { loadFonts } from "./styles/fonts";

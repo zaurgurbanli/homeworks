@@ -5,6 +5,7 @@ const DELETE_COMPONENT = "DELETE_COMPONENT";
 const UPDATE_COMPONENT = "UPDATE_COMPONENT";
 const TOGGLE_BOUGHT = "TOGGLE_BOUGHT";
 const RESET_BOUGHT = "RESET_BOUGHT";
+const DELETE_LIST = "DELETE_LIST";
 
 // SELECTORS
 const MODULE_NAME = "data";
@@ -66,6 +67,10 @@ export function dataReducer(state = initialState, { type, payload }) {
             components: [],
           },
         ],
+      };
+    case DELETE_LIST:
+      return {
+        lists: state.lists.filter((list) => list.id !== payload.listID),
       };
 
     case ADD_COMPONENT:
@@ -176,6 +181,10 @@ export function dataReducer(state = initialState, { type, payload }) {
 
 export const addList = (payload) => ({
   type: ADD_LIST,
+  payload,
+});
+export const deleteList = (payload) => ({
+  type: DELETE_LIST,
   payload,
 });
 export const addComponent = (payload) => ({
